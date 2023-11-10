@@ -7,8 +7,12 @@ import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 //import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.Data;
 
@@ -32,9 +36,9 @@ public class Order implements Serializable {
 	@Column(nullable = true)
 	private Integer delivered;
 
-/*	
-	//bi-directional many-to-one association to House
-	@OneToMany(mappedBy="fire")
-	private List<House> houses;
-*/		
+	@JsonIgnore
+	@ManyToOne
+    @JoinColumn(name = "CLIENT_FK")
+    private Client client;
+    
 }

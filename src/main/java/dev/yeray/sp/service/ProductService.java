@@ -4,7 +4,7 @@ import java.util.List;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import dev.yeray.sp.exception.ProductNotFoundException;
+import dev.yeray.sp.exception.DataNotFoundException;
 import dev.yeray.sp.model.dto.ProductDTO;
 import dev.yeray.sp.model.mapper.ProductMapper;
 import dev.yeray.sp.repository.ProductRepository;
@@ -26,7 +26,7 @@ public class ProductService {
 
 	public ProductDTO findById(Long id) {
 		return productMapper.fromEntity(this.productRepository.findById(id)
-				.orElseThrow(() -> new ProductNotFoundException("Product not found with ID: " + id)));
+				.orElseThrow(() -> new DataNotFoundException("Product not found with ID: " + id)));
 	}
 
 	public List<ProductDTO> findByStockGreaterThan(int stock) {

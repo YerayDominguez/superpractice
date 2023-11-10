@@ -3,7 +3,7 @@ package dev.yeray.sp.service;
 import java.util.List;
 import org.springframework.stereotype.Service;
 
-import dev.yeray.sp.exception.OrderNotFoundException;
+import dev.yeray.sp.exception.DataNotFoundException;
 import dev.yeray.sp.model.dto.OrderDTO;
 import dev.yeray.sp.model.mapper.OrderMapper;
 import dev.yeray.sp.repository.OrderRepository;
@@ -25,7 +25,7 @@ public class OrderService {
 
 	public OrderDTO findById(Long id) {
 		return orderMapper.fromEntity(this.orderRepository.findById(id)
-				.orElseThrow(() -> new OrderNotFoundException("Order not found with ID: " + id)));
+				.orElseThrow(() -> new DataNotFoundException("Order not found with ID: " + id)));
 	}
 
 }

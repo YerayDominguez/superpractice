@@ -40,7 +40,7 @@ public class ClientController {
 	public ResponseEntity<List<ClientDTO>> findAll(HttpServletRequest request) {
 		String url = request.getRequestURL().toString();
 		String method = request.getMethod();
-
+		
 		logger.info(Constants.ENTERING, "'ClientController.findAll'");
 		logger.info(Constants.ENDPOINT, method, url);
 		logger.info("Get Client List");

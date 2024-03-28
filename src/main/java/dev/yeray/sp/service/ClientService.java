@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import dev.yeray.sp.exception.DataNotFoundException;
 import dev.yeray.sp.model.dto.ClientDTO;
@@ -26,21 +27,26 @@ public class ClientService {
 		this.clientMapper = clientMapper;
 	}
 
+	@Transactional(readOnly = true)
 	public List<ClientDTO> findAll() {
 		return clientMapper.fromEntity(this.clientRepository.findAll(Sort.by("name")));
 	}
 
+	@Transactional(readOnly = true)
 	public ClientDTO findById(Long id) {
 		return clientMapper.fromEntity(this.clientRepository.findById(id)
 				.orElseThrow(() -> new DataNotFoundException(id)));
 	}
 
+	@Transactional
 	public ClientDTO createClient(ClientDTO clientDTO) {
 		return clientMapper.fromEntity(this.clientRepository.save(clientMapper.fromDTO(clientDTO)));
 	}
 	
+	@Transactional
 	public ClientDTO updateClient(Long id, ClientDTO clientDTO) {
-		ClientDTO oldClient = this.findById(id);
+		ClientDTO oldClient =clientMapper.fromEntity(this.clientRepository.findById(id)
+				.orElseThrow(() -> new DataNotFoundException(id)));
 		clientDTO.setId(id);
 		if (!Utils.isNotBlank(clientDTO.getName())) clientDTO.setName(oldClient.getName());
 		if (!Utils.isNotBlank(clientDTO.getSurname1())) clientDTO.setSurname1(oldClient.getSurname1());
@@ -48,10 +54,12 @@ public class ClientService {
 		return clientMapper.fromEntity(this.clientRepository.save(clientMapper.fromDTO(clientDTO)));
 	}
 
+	@Transactional
 	public void deleteClient(Long id) {
 		this.clientRepository.deleteById(id);
 	}
 
+	@Transactional(readOnly = true)
 	public boolean existsById(Long id) {
 		return this.clientRepository.existsById(id);
 	}

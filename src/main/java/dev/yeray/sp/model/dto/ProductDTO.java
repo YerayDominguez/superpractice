@@ -2,8 +2,7 @@ package dev.yeray.sp.model.dto;
 
 import java.io.Serializable;
 
-import javax.validation.constraints.NotBlank;
-
+import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 
 @Data
@@ -16,7 +15,6 @@ public class ProductDTO implements Serializable {
 	@NotBlank(message = "Name is required")
 	private String name;
 	private Integer stock;
-	
 	
 	private Double price;
 		

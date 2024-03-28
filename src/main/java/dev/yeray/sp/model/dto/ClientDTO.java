@@ -3,8 +3,8 @@ package dev.yeray.sp.model.dto;
 import java.io.Serializable;
 import java.util.List;
 
-import javax.validation.constraints.NotBlank;
 import dev.yeray.sp.model.entity.Order;
+import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 
 @Data

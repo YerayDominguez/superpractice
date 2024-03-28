@@ -1,6 +1,6 @@
 package dev.yeray.sp.exception;
 
-import javax.persistence.EntityNotFoundException;
+import jakarta.persistence.EntityNotFoundException;
 
 public class DataNotFoundException extends EntityNotFoundException {
 

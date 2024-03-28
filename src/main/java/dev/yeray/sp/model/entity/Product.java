@@ -2,14 +2,11 @@ package dev.yeray.sp.model.entity;
 
 
 import java.io.Serializable;
-//import java.util.List;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-//import javax.persistence.OneToMany;
-import javax.persistence.Table;
-
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import lombok.Data;
 
 @Data
@@ -31,9 +28,5 @@ public class Product implements Serializable {
 	
 	@Column(nullable = true)
 	private Double price;
-/*	
-	//bi-directional many-to-one association to House
-	@OneToMany(mappedBy="fire")
-	private List<House> houses;
-*/		
+	
 }

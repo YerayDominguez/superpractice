@@ -2,8 +2,6 @@ package dev.yeray.sp.controller;
 
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.validation.Valid;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,6 +21,8 @@ import dev.yeray.sp.constants.Constants;
 import dev.yeray.sp.exception.DataNotFoundException;
 import dev.yeray.sp.model.dto.ProductDTO;
 import dev.yeray.sp.service.ProductService;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.validation.Valid;
 
 @CrossOrigin(origins = "http://localhost:8081")
 @RestController

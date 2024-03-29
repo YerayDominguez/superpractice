@@ -1,0 +1,20 @@
+logging:
+  file:
+    name: ${logging.file.path}pinocho.log
+    path: ./logs/
+  level:
+    root: WARN
+management:
+  endpoints:
+    health:
+      include:
+        show-details: never
+    web:
+      exposure:
+        include: health,info
+spring:
+  datasource:
+    driver-class-name: oracle.jdbc.OracleDriver
+    password: ${DATABASE_PASSWORD}
+    url: jdbc:oracle:thin:@localhost:1521:orcl
+    username: BOB

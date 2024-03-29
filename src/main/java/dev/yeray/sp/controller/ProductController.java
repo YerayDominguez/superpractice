@@ -3,8 +3,6 @@ package dev.yeray.sp.controller;
 import java.util.List;
 
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -23,14 +21,15 @@ import dev.yeray.sp.model.dto.ProductDTO;
 import dev.yeray.sp.service.ProductService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @CrossOrigin(origins = "http://localhost:8081")
 @RestController
 @RequestMapping("/products")
 public class ProductController {
 
 	private final ProductService productService;
-	private static final Logger logger = LoggerFactory.getLogger(ProductController.class);
 
 	public ProductController(final ProductService productService) {
 		this.productService = productService;
@@ -41,9 +40,9 @@ public class ProductController {
 		String url = request.getRequestURL().toString();
 		String method = request.getMethod();
 		
-		logger.info(Constants.ENTERING, "'ProductController.findAll'");
-		logger.info(Constants.ENDPOINT, method, url);
-		logger.info("Get Product List");
+		log.info(Constants.ENTERING, "'ProductController.findAll'");
+		log.info(Constants.ENDPOINT, method, url);
+		log.info("Get Product List");
 		return new ResponseEntity<>(this.productService.findAll(), HttpStatus.OK);
 	}
 
@@ -52,9 +51,9 @@ public class ProductController {
 		String url = request.getRequestURL().toString();
 		String method = request.getMethod();
 
-		logger.info(Constants.ENTERING, "'ProductController.findById'");
-		logger.info(Constants.ENDPOINT, method, url);
-		logger.info("Find Product with Id: {}", id);
+		log.info(Constants.ENTERING, "'ProductController.findById'");
+		log.info(Constants.ENDPOINT, method, url);
+		log.info("Find Product with Id: {}", id);
 		return new ResponseEntity<>(this.productService.findById(id), HttpStatus.OK);
 	}
 
@@ -63,10 +62,10 @@ public class ProductController {
 		String url = request.getRequestURL().toString();
 		String method = request.getMethod();
 
-		logger.info(Constants.ENTERING, "'createProduct'");
-		logger.info(Constants.ENDPOINT, method, url);
+		log.info(Constants.ENTERING, "'createProduct'");
+		log.info(Constants.ENDPOINT, method, url);
 		productDTO.setId(null);
-		logger.info("Create Product: {}", productDTO);
+		log.info("Create Product: {}", productDTO);
 		return new ResponseEntity<>(this.productService.createProduct(productDTO), HttpStatus.OK);
 	}
 
@@ -76,11 +75,11 @@ public class ProductController {
 		String url = request.getRequestURL().toString();
 		String method = request.getMethod();
 
-		logger.info(Constants.ENTERING, "'updateProduct'");
-		logger.info(Constants.ENDPOINT, method, url);
+		log.info(Constants.ENTERING, "'updateProduct'");
+		log.info(Constants.ENDPOINT, method, url);
 
 		if (!this.productService.existsById(id)) {
-			logger.warn(Constants.NOT_FOUND, "Product", id);
+			log.warn(Constants.NOT_FOUND, "Product", id);
 			throw new DataNotFoundException(id);
 		} else {
 			return new ResponseEntity<>(this.productService.updateProduct(id, productDTO), HttpStatus.OK);
@@ -92,14 +91,14 @@ public class ProductController {
 		String url = request.getRequestURL().toString();
 		String method = request.getMethod();
 
-		logger.info(Constants.ENTERING, "'deleteProduct'");
-		logger.info(Constants.ENDPOINT, method, url);
+		log.info(Constants.ENTERING, "'deleteProduct'");
+		log.info(Constants.ENDPOINT, method, url);
 
 		if (!this.productService.existsById(id)) {
-			logger.warn(Constants.NOT_FOUND, "Product", id);
+			log.warn(Constants.NOT_FOUND, "Product", id);
 			throw new DataNotFoundException(id);
 		} else {
-			logger.info(Constants.DELETE, "product", id);
+			log.info(Constants.DELETE, "product", id);
 			this.productService.deleteProduct(id);
 			return new ResponseEntity<>("Product with ID " + id + " deleted successfully", HttpStatus.OK);
 		}
@@ -110,9 +109,9 @@ public class ProductController {
 		String url = request.getRequestURL().toString();
 		String method = request.getMethod();
 		
-		logger.info(Constants.ENTERING, "'ProductController.getProductsInStock'");
-		logger.info(Constants.ENDPOINT, method, url);
-		logger.info("Get Product in Stock List");
+		log.info(Constants.ENTERING, "'ProductController.getProductsInStock'");
+		log.info(Constants.ENDPOINT, method, url);
+		log.info("Get Product in Stock List");
 		return new ResponseEntity<>(this.productService.findByStockGreaterThan(0), HttpStatus.OK);
 	}
 

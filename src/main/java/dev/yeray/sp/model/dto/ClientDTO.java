@@ -5,8 +5,12 @@ import java.util.List;
 
 import dev.yeray.sp.model.entity.Order;
 import jakarta.validation.constraints.NotBlank;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
+@AllArgsConstructor
+@NoArgsConstructor
 @Data
 public class ClientDTO implements Serializable {
 

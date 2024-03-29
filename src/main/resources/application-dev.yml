@@ -1,0 +1,31 @@
+logging:
+  file:
+    name: ${logging.file.path}pinocho.log
+    path: ./logs/
+  level:
+    org:
+      hibernate:
+        SQL: DEBUG
+        type:
+          descriptor:
+            sql:
+              BasicBinder: TRACE
+management:
+  endpoints:
+    health:
+      include:
+        show-details: always
+    web:
+      exposure:
+        include: '*'
+spring:
+  datasource:
+    driver-class-name: oracle.jdbc.OracleDriver
+    password: ${DATABASE_PASSWORD}
+    url: jdbc:oracle:thin:@localhost:1521:orcl
+    username: BOB
+  jpa:
+    show-sql: false
+  security:
+    csrf:
+      disable: true

@@ -1,0 +1,16 @@
+logging:
+  level:
+    dev:
+      yeray:
+        sp: DEBUG
+    org:
+      springframework:
+        web: INFO
+    root: WARN
+spring:
+  application:
+    name: superPractice
+  jpa:
+    open-in-view: false
+  profiles:
+    active: local

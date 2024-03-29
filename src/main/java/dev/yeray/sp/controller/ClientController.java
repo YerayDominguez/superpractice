@@ -3,8 +3,6 @@ package dev.yeray.sp.controller;
 import java.util.List;
 
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -23,14 +21,15 @@ import dev.yeray.sp.model.dto.ClientDTO;
 import dev.yeray.sp.service.ClientService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @CrossOrigin(origins = "http://localhost:8081")
 @RestController
 @RequestMapping("/clients")
 public class ClientController {
 
 	private final ClientService clientService;
-	private static final Logger logger = LoggerFactory.getLogger(ClientController.class);
 
 	public ClientController(final ClientService clientService) {
 		this.clientService = clientService;
@@ -41,9 +40,9 @@ public class ClientController {
 		String url = request.getRequestURL().toString();
 		String method = request.getMethod();
 		
-		logger.info(Constants.ENTERING, "'ClientController.findAll'");
-		logger.info(Constants.ENDPOINT, method, url);
-		logger.info("Get Client List");
+		log.info(Constants.ENTERING, "'ClientController.findAll'");
+		log.info(Constants.ENDPOINT, method, url);
+		log.info("Get Client List");
 		return new ResponseEntity<>(this.clientService.findAll(), HttpStatus.OK);
 	}
 
@@ -52,9 +51,9 @@ public class ClientController {
 		String url = request.getRequestURL().toString();
 		String method = request.getMethod();
 
-		logger.info(Constants.ENTERING, "'ClientController.findById'");
-		logger.info(Constants.ENDPOINT, method, url);
-		logger.info("Find Client with Id: {}", id);
+		log.info(Constants.ENTERING, "'ClientController.findById'");
+		log.info(Constants.ENDPOINT, method, url);
+		log.info("Find Client with Id: {}", id);
 		return new ResponseEntity<>(this.clientService.findById(id), HttpStatus.OK);
 	}
 
@@ -63,10 +62,10 @@ public class ClientController {
 		String url = request.getRequestURL().toString();
 		String method = request.getMethod();
 
-		logger.info(Constants.ENTERING, "'createClient'");
-		logger.info(Constants.ENDPOINT, method, url);
+		log.info(Constants.ENTERING, "'createClient'");
+		log.info(Constants.ENDPOINT, method, url);
 		clientDTO.setId(null);
-		logger.info("Create Client: {}", clientDTO);
+		log.info("Create Client: {}", clientDTO);
 		return new ResponseEntity<>(this.clientService.createClient(clientDTO), HttpStatus.OK);
 	}
 
@@ -76,11 +75,11 @@ public class ClientController {
 		String url = request.getRequestURL().toString();
 		String method = request.getMethod();
 
-		logger.info(Constants.ENTERING, "'updateClient'");
-		logger.info(Constants.ENDPOINT, method, url);
+		log.info(Constants.ENTERING, "'updateClient'");
+		log.info(Constants.ENDPOINT, method, url);
 
 		if (!this.clientService.existsById(id)) {
-			logger.warn(Constants.NOT_FOUND, "Client", id);
+			log.warn(Constants.NOT_FOUND, "Client", id);
 			throw new DataNotFoundException(id);
 		} else {
 			return new ResponseEntity<>(this.clientService.updateClient(id, clientDTO), HttpStatus.OK);
@@ -92,14 +91,14 @@ public class ClientController {
 		String url = request.getRequestURL().toString();
 		String method = request.getMethod();
 
-		logger.info(Constants.ENTERING, "'deleteClient'");
-		logger.info(Constants.ENDPOINT, method, url);
+		log.info(Constants.ENTERING, "'deleteClient'");
+		log.info(Constants.ENDPOINT, method, url);
 
 		if (!this.clientService.existsById(id)) {
-			logger.warn(Constants.NOT_FOUND, "Client", id);
+			log.warn(Constants.NOT_FOUND, "Client", id);
 			throw new DataNotFoundException(id);
 		} else {
-			logger.info(Constants.DELETE, "client", id);
+			log.info(Constants.DELETE, "client", id);
 			this.clientService.deleteClient(id);
 			return new ResponseEntity<>("Client with ID " + id + " deleted successfully", HttpStatus.OK);
 		}

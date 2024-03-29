@@ -2,8 +2,6 @@ package dev.yeray.sp.service;
 
 import java.util.List;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -13,11 +11,11 @@ import dev.yeray.sp.model.dto.ProductDTO;
 import dev.yeray.sp.model.mapper.ProductMapper;
 import dev.yeray.sp.repository.ProductRepository;
 import dev.yeray.sp.utils.Utils;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Service
 public class ProductService {
-	
-	private static final Logger logger = LoggerFactory.getLogger(ProductService.class);
 
 	protected ProductRepository productRepository;
 	protected ProductMapper productMapper;
@@ -26,7 +24,7 @@ public class ProductService {
 		this.productRepository = productRepository;
 		this.productMapper = productMapper;
 	}
-	
+
 	@Transactional(readOnly = true)
 	public List<ProductDTO> findAll() {
 		return productMapper.fromEntity(this.productRepository.findAll(Sort.by("name")));
@@ -34,22 +32,23 @@ public class ProductService {
 
 	@Transactional(readOnly = true)
 	public ProductDTO findById(Long id) {
-		return productMapper.fromEntity(this.productRepository.findById(id)
-				.orElseThrow(() -> new DataNotFoundException(id)));
+		return productMapper
+				.fromEntity(this.productRepository.findById(id).orElseThrow(() -> new DataNotFoundException(id)));
 	}
 
 	@Transactional
 	public ProductDTO createProduct(ProductDTO productDTO) {
 		return productMapper.fromEntity(this.productRepository.save(productMapper.fromDTO(productDTO)));
 	}
-	
+
 	@Transactional
 	public ProductDTO updateProduct(Long id, ProductDTO productDTO) {
-		ProductDTO oldProduct = productMapper.fromEntity(this.productRepository.findById(id)
-				.orElseThrow(() -> new DataNotFoundException(id)));
+		ProductDTO oldProduct = productMapper
+				.fromEntity(this.productRepository.findById(id).orElseThrow(() -> new DataNotFoundException(id)));
 		productDTO.setId(id);
-		if (!Utils.isNotBlank(productDTO.getName())) productDTO.setName(oldProduct.getName());
-		logger.info("Update Product: {}", productDTO);
+		if (!Utils.isNotBlank(productDTO.getName()))
+			productDTO.setName(oldProduct.getName());
+		log.info("Update Product: {}", productDTO);
 		return productMapper.fromEntity(this.productRepository.save(productMapper.fromDTO(productDTO)));
 	}
 

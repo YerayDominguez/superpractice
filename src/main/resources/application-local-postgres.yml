@@ -20,12 +20,19 @@ management:
         include: '*'
 spring:
   datasource:
-    driver-class-name: oracle.jdbc.OracleDriver
-    password: ${DATABASE_PASSWORD}
-    url: jdbc:oracle:thin:@localhost:1521:orcl
-    username: BOB
+    url: jdbc:postgresql://localhost:5432/sp_postgres_db
+    username: postgres
+    password: Plexus44ff12
+    driver-class-name: org.postgresql.Driver
   jpa:
     show-sql: false
+    generate-ddl: true
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        '[jdbc.lob.non_contextual_creation]': true
   security:
     csrf:
       disable: true

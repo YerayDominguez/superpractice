@@ -21,9 +21,9 @@ management:
 spring:
   datasource:
     driver-class-name: oracle.jdbc.OracleDriver
-    password: ${DATABASE_PASSWORD}
-    url: jdbc:oracle:thin:@localhost:1521:orcl
-    username: BOB
+    password: Plexus44ff12
+    url: jdbc:oracle:thin:@localhost:1522/ORCLPDB1
+    username: sp_dev
   jpa:
     show-sql: false
   security:

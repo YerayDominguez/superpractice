@@ -13,4 +13,4 @@ spring:
   jpa:
     open-in-view: false
   profiles:
-    active: local
+    active: local-postgres

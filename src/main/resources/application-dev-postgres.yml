@@ -1,0 +1,38 @@
+logging:
+  file:
+    name: ${logging.file.path}pinocho.log
+    path: ./logs/
+  level:
+    org:
+      hibernate:
+        SQL: DEBUG
+        type:
+          descriptor:
+            sql:
+              BasicBinder: TRACE
+management:
+  endpoints:
+    health:
+      include:
+        show-details: always
+    web:
+      exposure:
+        include: '*'
+spring:
+  datasource:
+    url: jdbc:postgresql://db:5432/sp_postgres_db
+    username: postgres
+    password: Plexus44ff12
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    show-sql: false
+    generate-ddl: true
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        '[jdbc.lob.non_contextual_creation]': true
+  security:
+    csrf:
+      disable: true
